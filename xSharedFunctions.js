@@ -3,7 +3,7 @@
 const uuid = require('uuid');
 
 class xSharedFunctions {  
-    generateSuccessResponse(respCode, dataSuc){
+    generateSuccessResponse(respCode, dataSuc, component){
         
             var responseCode = (respCode === null) ? 400:respCode ;
             var responseBody = "";
@@ -14,6 +14,7 @@ class xSharedFunctions {
             };
             
             response.body = {
+                component: component,
                 status:  "success",
                 data: dataSuc
             };
@@ -23,7 +24,7 @@ class xSharedFunctions {
             return response;
     }
 
-    generateErrorResponse(respCode, dataErr){
+    generateErrorResponse(respCode, dataErr, component){
         
             var responseCode = (respCode === null) ? 400:respCode ;
             var responseBody = "";
@@ -34,6 +35,7 @@ class xSharedFunctions {
             };
             
             response.body = {
+                component: component,
                 status:  "error",
                 error:   dataErr,
             };
