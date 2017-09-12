@@ -49,9 +49,12 @@ class xSharedFunctions {
         return v !== undefined && v !== null;
     }
 
-    logmsg(component, uniqueId, severity,  message) {
-        var timestamp = new Date().getTime();
-        console.log(`[${component}] [${timestamp}] [${uniqueId}][${severity}] ${message}`);
+    logmsg(component, uniqueId, severity,  message, logEnabled) {
+        if(logEnabled == true){
+            var timestamp = new Date().getTime();
+            console.log(`[${component}] [${timestamp}] [${uniqueId}][${severity}] ${message}`);
+        }
+
     }
 
 
