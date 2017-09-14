@@ -2,9 +2,24 @@
 
 const uuid = require('uuid');
 
-class xSharedFunctions {  
-    generateSuccessResponse(dataSuc, component,respCode){
+class xSharedFunctions { 
+    
+    constructor(component,disableLogging){
         
+        
+                this.component      =  (component != true ) ? 'undefined' : component ;;
+                this.disableLogging =  disableLogging
+        
+                this.sns = new AWS.SNS({
+                    apiVersion: '2010-03-31',
+                    region: process.env.REGION
+                });
+        
+            }
+
+    generateSuccessResponse(dataSuc, component,respCode){
+            let that = this;
+
             var responseCode = (respCode != true ) ? 200 :respCode ;
             var responseBody = "";
         
@@ -14,7 +29,7 @@ class xSharedFunctions {
             };
             
             response.body = {
-                component: component,
+                component: that.component,
                 status:  "success",
                 data: dataSuc
             };
@@ -25,7 +40,8 @@ class xSharedFunctions {
     }
 
     generateErrorResponse(dataErr, component, respCode){
-        
+            let that = this;
+
             var responseCode = (respCode != true ) ? 400:respCode ;
             var responseBody = "";
         
@@ -35,7 +51,7 @@ class xSharedFunctions {
             };
             
             response.body = {
-                component: component,
+                component: that.component,
                 status:  "error",
                 error:   dataErr,
             };
@@ -50,7 +66,9 @@ class xSharedFunctions {
     }
 
     logmsg(component, uniqueId, severity,  message, logEnabled) {
-        if(logEnabled == true){
+        let that = this;
+
+        if(that.disableLogging === true){
             var timestamp = new Date().getTime();
             console.log(`[${component}] [${timestamp}] [${uniqueId}][${severity}] ${message}`);
         }
