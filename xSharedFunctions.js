@@ -7,17 +7,12 @@ class xSharedFunctions {
     constructor(component,disableLogging){
         
         
-                this.component      =  (component != true ) ? 'undefined' : component ;;
+                this.component      =  (component != true ) ? 'undefined' : component ;
                 this.disableLogging =  disableLogging
-        
-                this.sns = new AWS.SNS({
-                    apiVersion: '2010-03-31',
-                    region: process.env.REGION
-                });
-        
+                
             }
 
-    generateSuccessResponse(dataSuc, component,respCode){
+    generateSuccessResponse(dataSuc,respCode){
             let that = this;
 
             var responseCode = (respCode != true ) ? 200 :respCode ;
@@ -39,7 +34,7 @@ class xSharedFunctions {
             return response;
     }
 
-    generateErrorResponse(dataErr, component, respCode){
+    generateErrorResponse(dataErr, respCode){
             let that = this;
 
             var responseCode = (respCode != true ) ? 400:respCode ;
@@ -65,12 +60,12 @@ class xSharedFunctions {
         return v !== undefined && v !== null;
     }
 
-    logmsg(component, uniqueId, severity,  message, logEnabled) {
+    logmsg(uniqueId, severity,  message) {
         let that = this;
 
         if(that.disableLogging === true){
             var timestamp = new Date().getTime();
-            console.log(`[${component}] [${timestamp}] [${uniqueId}][${severity}] ${message}`);
+            console.log(`[${that.component}] [${timestamp}] [${uniqueId}][${severity}] ${message}`);
         }
 
     }
