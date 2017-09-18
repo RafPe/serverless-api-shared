@@ -4,10 +4,10 @@ const uuid = require('uuid');
 
 class xSharedFunctions { 
     
-    constructor(component,disableLogging){
+    constructor(component,callback,disableLogging){
         
-        
-                this.component      =  (component != true ) ? 'undefined' : component ;
+                this.callback       =  callback;
+                this.component      =  (component === null || component === undefined ) ? 'undefined' : component ;
                 this.disableLogging =  disableLogging
                 
             }
@@ -63,7 +63,7 @@ class xSharedFunctions {
     logmsg(uniqueId, severity,  message) {
         let that = this;
 
-        if(that.disableLogging === true){
+        if(that.disableLogging !== true){
             var timestamp = new Date().getTime();
             console.log(`[${that.component}] [${timestamp}] [${uniqueId}][${severity}] ${message}`);
         }
