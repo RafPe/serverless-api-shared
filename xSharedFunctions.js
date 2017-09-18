@@ -15,7 +15,7 @@ class xSharedFunctions {
     generateSuccessResponse(dataSuc,respCode){
             let that = this;
 
-            var responseCode = (respCode != true ) ? 200 :respCode ;
+            var responseCode = (respCode === null || respCode === undefined  ) ? 200:respCode ;
             var responseBody = "";
         
             var response = {
@@ -37,7 +37,7 @@ class xSharedFunctions {
     generateErrorResponse(dataErr, respCode){
             let that = this;
 
-            var responseCode = (respCode != true ) ? 400:respCode ;
+            var responseCode = (respCode === null || respCode === undefined  ) ? 400:respCode ;
             var responseBody = "";
         
             var response = {
@@ -62,6 +62,7 @@ class xSharedFunctions {
 
     logmsg(uniqueId, severity,  message) {
         let that = this;
+
 
         if(that.disableLogging !== true){
             var timestamp = new Date().getTime();
